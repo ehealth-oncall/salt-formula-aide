@@ -4,8 +4,8 @@ aide:
   pkg.installed:
     - name: aide
   cmd.run:
-    - name: 'aide --init && mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz'
-    - unless: 'test -f /var/lib/aide/aide.db.gz'
+    - name: 'aide --init'
+    - unless: 'test -f {{ salt['pillar.get']('aide:lookup:define.DBDIR_RO') }}/aide.db.gz'
     - require:
       - pkg: aide
   file.managed:
